@@ -1,6 +1,22 @@
 # Project Title
 
-One Paragraph of project description goes here
+LPM Local Password Manager is a tool for managing your passwords on your local machine making it "safer"... 
+
+## To Do:
+
+Set up virtualenv, research and download the tools needed
+
+Will be using the Django framework to develop this project, will this make it multiplatform?
+
+Research password management methods and learn of an efficient way to manage them
+
+### User stuff:
+
+User must be able to add multiple accounts
+
+User will be able to generate a random password
+
+Dig into what more will i need... 
 
 ## Getting Started
 
