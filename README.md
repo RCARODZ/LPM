@@ -18,6 +18,10 @@ User will be able to generate a random password
 
 Dig into what more will i need... 
 
+### Some helpful links:
+
+* [django password manager](https://pypi.python.org/pypi/django-password-manager/0.0.1) 
+* [to read](http://charlesleifer.com/blog/creating-a-personal-password-manager/)
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
