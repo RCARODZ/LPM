@@ -1,6 +1,6 @@
 # !/LPM/bin/python 
 
-version = 0.1
+VERSION = 0.1
 SECRET_KEY = 'secret'
 
 """
@@ -25,6 +25,8 @@ Should this have a secret key?
 import hashlib
 import argparse
 import logging
+import sys
+import os
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -36,7 +38,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 class generate():
-    def __init__(self,salt,password):
+    def __init__(self):
         self.salt = 'salt'
         self.password = 'password'
         # should a password length be required 
@@ -50,16 +52,18 @@ class generate():
 
 def main_args():
     # Define arguments
-    p = argparse.ArgumentParser()
+    p = argparse.ArgumentParser(prog='pgenerator.py',
+                                description='Generate a strong password',
+                                epilog='Author: Ricardo Castro')
     p.add_argument("-t",
-                   help="Run a test")
-    p.add_argument("-s", type=int,
+                   help="Run a test",action='store_true')
+    p.add_argument("-s", type=str,
                    help="Input secret key:  -s [key]")
     p.add_argument("--on", action="store_true",
                    help="include to enable")
     p.add_argument("-v", "--verbosity", type=int, choices=[0,1,2], default=0,
                    help="increase output verbosity")
-                    
+    
     group1 = p.add_mutually_exclusive_group(required=True)
     group1.add_argument('--enable',action="store_true")
     group1.add_argument('--disable',action="store_false")
@@ -69,5 +73,5 @@ def main_args():
 if __name__ == '__main__':
     logger.info("Initial testing completed")
     args = main_args()
-    
+
     print(args)
