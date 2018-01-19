@@ -52,6 +52,7 @@ class generate():
 
 def main_args():
     # Define arguments
+    # Have a functional argparser befre begining full code. 
     p = argparse.ArgumentParser(prog='pgenerator.py',
                                 description='Generate a strong password',
                                 epilog='Author: Ricardo Castro')
