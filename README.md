@@ -1,4 +1,4 @@
-# Project Title
+# LPM
 
 LPM Local Password Manager is a tool for managing your passwords on your local machine making it "safer"... 
 
@@ -22,6 +22,9 @@ Dig into what more will i need...
 
 * [django password manager](https://pypi.python.org/pypi/django-password-manager/0.0.1) 
 * [to read](http://charlesleifer.com/blog/creating-a-personal-password-manager/)
+
+## Libraries Required: 
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
