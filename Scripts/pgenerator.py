@@ -58,13 +58,13 @@ class LPM():
             alpha += '!@#$%^&*()-_'
         return alpha
 
-    def get_hexdigest(self, salt, plaintext):
+    def get_hexdigest(self):
         logger.info('generate hexhash...')
-        return hashlib.sha256(salt+plaintext).hexdigest()
+        return hashlib.sha256(SECRET_KEY+self.name).hexdigest()
 
     def make_password(self, plaintext, service):
-        salt = self.get_hexdigest(SECRET_KEY, self.name)
-        hsh = self.get_hexdigest(salt, plaintext)
+        salt = self.get_hexdigest()
+        hsh = self.get_hexdigest()
         return ''.join((salt, hsh))
 
 
@@ -92,9 +92,6 @@ class LPM():
     def password_handler(self, plaintext):
         return self.password_funct()
 
-    def create():
-        pass
-
 
 def main_args():
     # Define arguments
@@ -120,7 +117,8 @@ if __name__ == '__main__':
 
     if args.t:
         logger.info("Entered testing evironment...")
-        lpm = LPM(name='reddit', length=8, symbols=False, password='Rc@rodriguez2293')
+        lpm = LPM(name='amazon', length=8, symbols=False, password='another')
+        logger.info('testing parameters:amazon:8:False:another',)
         print lpm.password_funct()
     else:
         #This is printing some weird thing
