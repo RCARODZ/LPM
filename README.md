@@ -27,9 +27,13 @@ Dig into what more will i need...
 * [django password manager](https://pypi.python.org/pypi/django-password-manager/0.0.1) 
 * [to read](http://charlesleifer.com/blog/creating-a-personal-password-manager/)
 
-## Libraries Required: 
-    Django v1.11
 ## Getting Started
+
+To get started activate virtualevn (must have it installed beforehand):
+
+```
+source LPM/bin/activate
+```
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -38,7 +42,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Still in development
+Django 1.11
 ```
 
 ### Installing
