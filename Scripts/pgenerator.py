@@ -118,6 +118,9 @@ if __name__ == '__main__':
     
     args = main_args()
 
+    # testing argument input
+    print args.password
+    print args.account
 
     if args.t:
         logger.info("Entered testing evironment...")
