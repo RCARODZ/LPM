@@ -1,6 +1,6 @@
 # !/LPM/bin/python 
 
-VERSION = 0.1
+VERSION = 0.2
 SECRET_KEY = 'secret'
 
 """
@@ -60,7 +60,7 @@ class LPM():
 
     def get_hexdigest(self):
         logger.info('generate hexhash...')
-        return hashlib.sha256(SECRET_KEY+self.name).hexdigest()
+        return hashlib.sha256(SECRET_KEY+self.name+self.password).hexdigest()
 
     def make_password(self, plaintext, service):
         salt = self.get_hexdigest()
@@ -103,6 +103,9 @@ def main_args():
                    help="Run a test",action='store_true')
     p.add_argument("-s", type=str,
                    help="Input secret key:  -s [key]")
+    p.add_argument("-p","--password", type=str, help="define password -p [password]")
+    p.add_argument("-a", "--account", type=str, help="enter account to be used -a [account]")
+
     p.add_argument("--on", action="store_true",
                    help="include to enable")
     p.add_argument("-v", "--verbosity", type=int, choices=[0,1,2], default=0,
@@ -115,9 +118,10 @@ if __name__ == '__main__':
     
     args = main_args()
 
+
     if args.t:
         logger.info("Entered testing evironment...")
-        lpm = LPM(name='reddit', length=10, symbols=False, password='another')
+        lpm = LPM(name='facebook', length=10, symbols=False, password='hola')
         logger.info('testing parameters:amazon:8:False:another',)
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
