@@ -98,7 +98,7 @@ def main_args():
     # Have a functional argparser befre begining full code. 
     p = argparse.ArgumentParser(prog='pgenerator.py',
                                 description='Generate a strong password',
-                                epilog='Author: Ricardo Castro')
+                                epilog='Author: Ricardo Castro | Pgen V{0}'.format(VERSION))
     p.add_argument("-t",
                    help="Run a test",action='store_true')
     p.add_argument("-s", type=str,
@@ -125,25 +125,29 @@ if __name__ == '__main__':
 
     if args.t:
         logger.info("Entered testing evironment...")
-        lpm = LPM(name='facebook', length=10, symbols=False, password='hola')
+        lpm = LPM(name='Home Network', length=10, symbols=False, password='hola')
         logger.info('testing parameters:amazon:8:False:another',)
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
         print generated
 
     if args.password:
+        logger.info('user entered a password:%s',args.password)
         password = args.password
         print password
     if args.account:
+        logger.info('user entered an account:%s',args.account)
         name = args.account
         print name
     if args.length:
+        logger.info('user entered length for the password:%d',args.length)
         length = args.length
         print length
     if args.symbols:
+        logger.info('user answered symbol question')
         symbols = args.symbols
         print symbols
 
-    elif len(sys.argv) == 0:
+    elif len(sys.argv) == 0: #Something is wrong here
         #This is printing some weird thing
         print(main_args())
