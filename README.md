@@ -13,6 +13,7 @@ Research password management methods and learn of an efficient way to manage the
 
 ## FIX:
 
+
 ### User stuff:
 
 User must be able to add multiple accounts
@@ -27,7 +28,7 @@ Dig into what more will i need...
 * [to read](http://charlesleifer.com/blog/creating-a-personal-password-manager/)
 
 ## Libraries Required: 
-
+    Django v1.11
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
