@@ -16,12 +16,11 @@ This makes it harder for the account to be attacked by a password brute force at
 - Define a salt / this could be the account the user is creating the password for.
 - The user imputs a password they want
 - Generates a password from those parameters
-
-Should this have a secret key? 
+- Verify function generating the password, its always printing the same thing.
 
 """
 
-'imports'
+# IMPORTS
 import hashlib
 import argparse
 import logging
@@ -34,7 +33,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler('pgenerator.log')
 handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s : %(name)s : [%(levelname)s] : %(message)s')
+formatter = logging.Formatter('%(asctime)s:%(name)s:[%(levelname)s]:%(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
@@ -91,8 +90,7 @@ class LPM():
         return ''.join(chars)
 
     def password_handler(self, plaintext):
-        return self.password_funct(self.name, self.length,
-                        self.get_alphabet())
+        return self.password_funct()
 
     def create():
         pass
@@ -122,7 +120,7 @@ if __name__ == '__main__':
 
     if args.t:
         logger.info("Entered testing evironment...")
-        lpm = LPM(name='amazon', length=8, symbols=True, password='Rc@rodriguez2293')
+        lpm = LPM(name='reddit', length=8, symbols=False, password='Rc@rodriguez2293')
         print lpm.password_funct()
     else:
         #This is printing some weird thing
