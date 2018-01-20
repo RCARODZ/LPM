@@ -27,28 +27,71 @@ import argparse
 import logging
 import sys
 import os
+import sqlite3
 
 # Set up logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler('pgenerator.log')
 handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(asctime)s : %(name)s : [%(levelname)s] : %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-class generate():
-    def __init__(self):
-        self.salt = 'salt'
-        self.password = 'password'
-        # should a password length be required 
-        # upper and lower case? 
+class LPM():
+    def __init__(self, name, length, symbols):
+        self.name = None
+        self.length = 8 #default
+        self.symbols = True #does it contain symbols
+        self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            '0123456789!@#$%^&*()-_')
+        self.password = None #user password
+        
+    def get_alphabet(self):
+        if self.alphabet:
+            return self.alphabet
+        alpha = ('abcdefghijklmnopqrstuvwxyz'
+                 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                 '0123456789')
+        if self.symbols:
+            alpha += '!@#$%^&*()-_'
+        return alpha
 
-    def get_hexdigest(self, salt, password):
-        return hashlib.sha256(salt+password).hexdigest()
+    def get_hexdigest(self, salt, plaintext):
+        return hashlib.sha256(salt+plaintext)
 
-    def create_password(self):
-        pass 
+    def make_password(self, plaintext, service):
+        salt = self.get_hexdigest(SECRET_KEY, self.name)
+        hsh = self.get_hexdigest(salt, plaintext)
+        return ''.join((salt, hsh))
+
+    def password(self):
+        #check variables
+        raw_hexdigest = self.make_password(plaintext, service)
+
+        # Convert the hexdigest into decimal
+        num = int(raw_hexdigest, 16)
+
+        # What base will we convert `num` into?
+        num_chars = len(self.alphabet)
+
+        # Build up the new password one "digit" at a time,
+        # up to a certain length
+        chars = []
+        while len(chars) < self.length:
+            num, idx = divmod(num, num_chars)
+            chars.append(self.alphabet[idx])
+
+        return ''.join(chars)
+
+    def password_handler(self, plaintext):
+        return password(plaintext, self.name, self.length,
+                        self.get_alphabet())
+
+    def create():
+        pass
+
 
 def main_args():
     # Define arguments
@@ -65,14 +108,16 @@ def main_args():
     p.add_argument("-v", "--verbosity", type=int, choices=[0,1,2], default=0,
                    help="increase output verbosity")
     
-    group1 = p.add_mutually_exclusive_group(required=True)
-    group1.add_argument('--enable',action="store_true")
-    group1.add_argument('--disable',action="store_false")
- 
+
     return(p.parse_args())
 
 if __name__ == '__main__':
     logger.info("Initial testing completed")
     args = main_args()
 
-    print(args)
+    if args.t:
+        gen = Service(name='amazon',length=10,symbols=True)
+        print gen
+    else:
+        #This is printing some weird thing
+        print(main_args())
