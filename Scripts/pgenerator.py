@@ -49,6 +49,7 @@ class LPM():
         self.password = '' #user password
         
     def get_alphabet(self):
+        logger.info('generating alphabet for password...')
         if self.alphabet:
             return self.alphabet
         alpha = ('abcdefghijklmnopqrstuvwxyz'
@@ -59,7 +60,8 @@ class LPM():
         return alpha
 
     def get_hexdigest(self, salt, plaintext):
-        return hashlib.sha256(salt+plaintext)
+        logger.info('generate hexhash...')
+        return hashlib.sha256(salt+plaintext).hexdigest()
 
     def make_password(self, plaintext, service):
         salt = self.get_hexdigest(SECRET_KEY, self.name)
@@ -67,8 +69,10 @@ class LPM():
         return ''.join((salt, hsh))
 
 
-    def password(self):
+    def password_funct(self):
+        logger.warning('password_funct... this function needs to be verified..')
         #check variables
+        #its allways returning the same password...
         raw_hexdigest = self.make_password(self.password, self.name)
 
         # Convert the hexdigest into decimal
@@ -87,7 +91,7 @@ class LPM():
         return ''.join(chars)
 
     def password_handler(self, plaintext):
-        return self.password(self.name, self.length,
+        return self.password_funct(self.name, self.length,
                         self.get_alphabet())
 
     def create():
@@ -113,12 +117,13 @@ def main_args():
     return(p.parse_args())
 
 if __name__ == '__main__':
-    logger.info("Initial testing completed")
+    
     args = main_args()
 
     if args.t:
-        lpm = LPM(name='amazon', length=10, symbols=True, password='password')
-        print lpm.password()
+        logger.info("Entered testing evironment...")
+        lpm = LPM(name='amazon', length=8, symbols=True, password='Rc@rodriguez2293')
+        print lpm.password_funct()
     else:
         #This is printing some weird thing
         print(main_args())
