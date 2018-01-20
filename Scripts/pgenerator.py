@@ -105,12 +105,11 @@ def main_args():
                    help="Input secret key:  -s [key]")
     p.add_argument("-p","--password", type=str, help="define password -p [password]")
     p.add_argument("-a", "--account", type=str, help="enter account to be used -a [account]")
-
-    p.add_argument("--on", action="store_true",
-                   help="include to enable")
+    p.add_argument("-c","--symbols", type=bool, help="Does the password needs to contain symbol?")
+    p.add_argument("--on", action="store_true", help="include to enable")
+    p.add_argument("-l", "--length", type=int, help="Length of the password")
     p.add_argument("-v", "--verbosity", type=int, choices=[0,1,2], default=0,
                    help="increase output verbosity")
-    
 
     return(p.parse_args())
 
@@ -118,9 +117,11 @@ if __name__ == '__main__':
     
     args = main_args()
 
-    # testing argument input
-    print args.password
-    print args.account
+    #Input variables 
+    name = 'Facebook'
+    length = 8 #default
+    symbols = True
+    password = 'password'
 
     if args.t:
         logger.info("Entered testing evironment...")
@@ -129,6 +130,20 @@ if __name__ == '__main__':
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
         print generated
-    else:
+
+    if args.password:
+        password = args.password
+        print password
+    if args.account:
+        name = args.account
+        print name
+    if args.length:
+        length = args.length
+        print length
+    if args.symbols:
+        symbols = args.symbols
+        print symbols
+
+    elif len(sys.argv) == 0:
         #This is printing some weird thing
         print(main_args())
