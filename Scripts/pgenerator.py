@@ -39,13 +39,13 @@ logger.addHandler(handler)
 
 class LPM():
     def __init__(self, name, length, symbols, password):
-        self.name = ''
-        self.length = 8 #default
-        self.symbols = True #does it contain symbols
+        self.name = name
+        self.length = length #default
+        self.symbols = symbols #does it contain symbols
         self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             '0123456789!@#$%^&*()-_')
-        self.password = '' #user password
+        self.password = password #user password
         
     def get_alphabet(self):
         logger.info('generating alphabet for password...')
@@ -117,9 +117,11 @@ if __name__ == '__main__':
 
     if args.t:
         logger.info("Entered testing evironment...")
-        lpm = LPM(name='amazon', length=8, symbols=False, password='another')
+        lpm = LPM(name='reddit', length=10, symbols=False, password='another')
         logger.info('testing parameters:amazon:8:False:another',)
-        print lpm.password_funct()
+        generated = lpm.password_funct()
+        logger.info('password generated:%s [this will only be printed in the test environment]',generated)
+        print generated
     else:
         #This is printing some weird thing
         print(main_args())
