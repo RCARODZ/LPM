@@ -39,14 +39,14 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 class LPM():
-    def __init__(self, name, length, symbols):
-        self.name = None
+    def __init__(self, name, length, symbols, password):
+        self.name = ''
         self.length = 8 #default
         self.symbols = True #does it contain symbols
         self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             '0123456789!@#$%^&*()-_')
-        self.password = None #user password
+        self.password = '' #user password
         
     def get_alphabet(self):
         if self.alphabet:
@@ -66,9 +66,10 @@ class LPM():
         hsh = self.get_hexdigest(salt, plaintext)
         return ''.join((salt, hsh))
 
+
     def password(self):
         #check variables
-        raw_hexdigest = self.make_password(plaintext, service)
+        raw_hexdigest = self.make_password(self.password, self.name)
 
         # Convert the hexdigest into decimal
         num = int(raw_hexdigest, 16)
@@ -86,7 +87,7 @@ class LPM():
         return ''.join(chars)
 
     def password_handler(self, plaintext):
-        return password(plaintext, self.name, self.length,
+        return self.password(self.name, self.length,
                         self.get_alphabet())
 
     def create():
@@ -116,8 +117,8 @@ if __name__ == '__main__':
     args = main_args()
 
     if args.t:
-        gen = Service(name='amazon',length=10,symbols=True)
-        print gen
+        lpm = LPM(name='amazon', length=10, symbols=True, password='password')
+        print lpm.password()
     else:
         #This is printing some weird thing
         print(main_args())
