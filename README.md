@@ -10,6 +10,10 @@ Will be using the Django framework to develop this project, will this make it mu
 
 Research password management methods and learn of an efficient way to manage them
 
+## FIX:
+
+Password generator currently working but its always generating the same password
+
 ### User stuff:
 
 User must be able to add multiple accounts
