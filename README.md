@@ -32,7 +32,9 @@ Dig into what more will i need...
 To get started activate virtualevn (must have it installed beforehand):
 
 ```
-source LPM/bin/activate
+git clone https://github.com/RCARODZ/LPM.git
+
+source LPM/bin/activate #Activates virtual environment
 ```
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
