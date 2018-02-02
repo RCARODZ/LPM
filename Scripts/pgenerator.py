@@ -131,10 +131,13 @@ if __name__ == '__main__':
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
         print generated
 
-    if args.password:
-        logger.info('user entered a password:%s',args.password)
+    if args.password and args.account:
+        #logger.info('user entered a password:%s',args.password)
         password = args.password
-        print password
+        lpm = LPM(name=args.account, length=10, symbols=False, password=args.password)
+        logger.info('user entered an account and password.')
+        passwordgen = lpm.password_funct()
+        print passwordgen
     if args.account:
         logger.info('user entered an account:%s',args.account)
         name = args.account
