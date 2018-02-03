@@ -1,6 +1,6 @@
 # !/LPM/bin/python 
 
-VERSION = 0.2
+VERSION = 1.3
 SECRET_KEY = 'secret'
 
 """
@@ -131,15 +131,15 @@ if __name__ == '__main__':
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
         print generated
 
-    if args.password and args.account:
+    if args.password and args.account and args.length:
         #logger.info('user entered a password:%s',args.password)
         password = args.password
-        lpm = LPM(name=args.account, length=10, symbols=False, password=args.password)
-        logger.info('user entered an account and password.')
+        lpm = LPM(name=args.account, length=args.length, symbols=False, password=args.password)
+        logger.info('user entered an account:%s, password:%s, and length:%d', args.account, args.password, args.length)
         passwordgen = lpm.password_funct()
         print passwordgen
-    if args.account:
-        logger.info('user entered an account:%s',args.account)
+    if args.password and args.account:
+        logger.info('user entered an account:%s, and password:%s',args.account, args.password)
         name = args.account
         print name
     if args.length:
