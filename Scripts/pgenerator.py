@@ -18,6 +18,12 @@ This makes it harder for the account to be attacked by a password brute force at
 - Generates a password from those parameters
 - Verify function generating the password, its always printing the same thing.
 
+Todo:
+
+Create an integration with a database.
+
+Create easy user interaction. (add, remove, modify)
+
 """
 
 # IMPORTS

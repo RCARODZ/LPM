@@ -4,6 +4,7 @@ LPM made in C
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <argp.h>
 
 #define VERSION 0.1
 
