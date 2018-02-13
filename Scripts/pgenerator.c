@@ -4,11 +4,12 @@ LPM made in C
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <argp.h>
+// #include <argp.h> for defining arguments, it cant be found.
 
-#define VERSION 0.1
+//#define VERSION 
 
 // Find out how to create a logger in C
+// handling arguments in C
 
 int main(int argc, char *argv[]){
     if(argc == 1){

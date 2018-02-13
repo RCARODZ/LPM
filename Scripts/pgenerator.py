@@ -32,7 +32,7 @@ import argparse
 import logging
 import sys
 import os
-import sqlite3
+import sqlite3 #is this the database im going to use? 
 
 # Set up logger
 logger = logging.getLogger(__name__)
