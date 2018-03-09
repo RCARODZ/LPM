@@ -22,7 +22,7 @@ struct tm *timestamp;
 // Find out how to create a logger in C
 // handling arguments in C
 
-void logger(int code, char* buffer);
+void logger(int code, char* buffer[]);
 
 int main(int argc, char *argv[]){
     if(argc == 1){
@@ -36,11 +36,13 @@ int main(int argc, char *argv[]){
 }
 
 //code to determine warning, error or info and the buffer is the string with the message.
-void logger(int code, char* buffer){
+void logger(int code, char* buffer[]){
     //Define code
     FILE *logfile;
+    char mesg[40];
     if(code == 0)   //Error
     {
+        mesg = strcat("[ERROR]:",buffer);
         fopen("pgeneratorclog.log", "a+");
         
     }
