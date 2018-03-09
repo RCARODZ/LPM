@@ -6,6 +6,10 @@ Needs to add logger info to the current logger but for testing its going to writ
 another logger.
 
 need to come up with an algorithm to generate passwords.
+
+Find out how to create a logger in C
+
+handling arguments in C
 */
 #include <stdio.h>
 #include <string.h>
@@ -13,16 +17,23 @@ need to come up with an algorithm to generate passwords.
 #include <time.h>
 // #include <argp.h> for defining arguments, it cant be found.
 
-//#define VERSION 
+#ifdef _WIN32   //Code for windows computer
+int main(){
+    printf("Windows Version");
+    return 0;
+}
+#endif  //End windows version
+
+#ifdef __APPLE__    // C code for apple computer
+#define VERSION 4
 //Define Time
-size_t time;
+size_t t;
 struct tm *timestamp;
 
+//Functions
+void logger(int code, char* buffer);
+char* generator(char* username, char* password);   // Generate Password
 
-// Find out how to create a logger in C
-// handling arguments in C
-
-void logger(int code, char* buffer[]);
 
 int main(int argc, char *argv[]){
     if(argc == 1){
@@ -36,14 +47,29 @@ int main(int argc, char *argv[]){
 }
 
 //code to determine warning, error or info and the buffer is the string with the message.
-void logger(int code, char* buffer[]){
+void logger(int code, char* message){
     //Define code
     FILE *logfile;
-    char mesg[40];
+    char* mesg;
     if(code == 0)   //Error
     {
-        mesg = strcat("[ERROR]:",buffer);
+        mesg = strcat("[ERROR]:", message);
         fopen("pgeneratorclog.log", "a+");
         
+    }  
+    if(code == 1)   //Warning
+    {
+
+    }
+    if(code == 2)   //Info
+    {
+
     }
 }
+
+char* generator(char* username, char* password){
+    //Generate the password using inputs
+
+}
+
+#endif  //End Appleversion
