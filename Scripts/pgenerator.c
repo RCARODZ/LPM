@@ -16,7 +16,7 @@ handling arguments in C
 #include <stdlib.h>
 #include <time.h>
 // #include <argp.h> for defining arguments, it cant be found.
-
+#define VERSION 0.1
 #ifdef _WIN32   //Code for windows computer
 int main(){
     printf("Windows Version");
@@ -25,7 +25,7 @@ int main(){
 #endif  //End windows version
 
 #ifdef __APPLE__    // C code for apple computer
-#define VERSION 4
+
 //Define Time
 size_t t;
 struct tm *timestamp;
@@ -37,10 +37,13 @@ char* generator(char* username, char* password);   // Generate Password
 
 int main(int argc, char *argv[]){
     if(argc == 1){
-        pintf("LPM - Local Password Manager V%d\n", VERSION);
+        printf("LPM - Local Password Manager V:%f\n", VERSION);
         printf(" %s | -a [account] -p [password] /test");
     } else if(strcmp(argv[1], "/test")){
         // Enter testing environmnet
+    } else if(strcmp(argv[1], "-a")){
+        printf("entered account...\n");
+        printf("%s\n", argv[1]);
     }
 
     return 0;
