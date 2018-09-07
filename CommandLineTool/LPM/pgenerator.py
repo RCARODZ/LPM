@@ -44,12 +44,9 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:[%(levelname)s]:%(message)s'
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-class LPM(Account acc):
-    def __init__(self, name, length, symbols, password):
-        self.name = name
-        self.length = length #default
-        self.password = password #user password
-        self.symbols = symbols #does it contain symbols
+class LPM(Account):
+    def __init__(self, Account):
+        self.symbols = False #does it contain symbols
         self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             '0123456789!@#$%^&*()-_')

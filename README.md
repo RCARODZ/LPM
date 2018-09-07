@@ -1,16 +1,14 @@
 # LPM
 
-LPM Local Password Manager is a tool for managing your passwords on your local machine making it "safer"... 
+Local Password Manager is a tool design to generate and store passwords in a safer way. 
 
 ## To Do:
 
-Will be using the Django framework to develop this project, will this make it multiplatform?
-
-Research password management methods and learn of an efficient way to manage them
-
-Create an integration with a database.
+Create an integration with a database. (maybe)
 
 Create easy user interaction. (add, remove, modify)
+
+Redesing Class Implementations
 
 ## FIX:
 
