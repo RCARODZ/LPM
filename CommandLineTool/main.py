@@ -47,6 +47,10 @@ if __name__ == '__main__':
 
     if args.t:
         logger.info("Entered testing evironment...")
+        acc = LPM.account.Account()
+        acc.name='Home Network'
+        acc.length=10
+        acc.password="hola"
         lpm = LPM.pgenerator.LPM(name='Home Network', length=10, symbols=False, password='hola')
         logger.info('testing parameters:amazon:8:False:another',)
         generated = lpm.password_funct()

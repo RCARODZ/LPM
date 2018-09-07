@@ -1,4 +1,4 @@
-# !/LPM/bin/python 
+# !/usr/bin/python 
 
 VERSION = 1.3
 SECRET_KEY = 'secret'
@@ -33,6 +33,7 @@ import logging
 import sys
 import os
 import sqlite3 #is this the database im going to use? 
+from account import Account
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -43,15 +44,16 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:[%(levelname)s]:%(message)s'
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-class LPM(object):
+class LPM(Account acc):
     def __init__(self, name, length, symbols, password):
         self.name = name
         self.length = length #default
+        self.password = password #user password
         self.symbols = symbols #does it contain symbols
         self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             '0123456789!@#$%^&*()-_')
-        self.password = password #user password
+        
         
     def get_alphabet(self):
         logger.info('generating alphabet for password...')
