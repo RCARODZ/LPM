@@ -1,0 +1,32 @@
+2018-09-06 17:37:38,813:account:[INFO]:
+            Account Information:
+
+            Name:{0}
+
+            ID:{1}
+
+        
+2018-09-06 17:40:57,024:account:[INFO]:
+            Account Information:
+
+            Name:Some Account
+
+            ID:
+
+        
+2018-09-06 17:42:55,363:account:[INFO]:
+            Account Information:
+
+            Name:Some Account
+
+            ID:someID
+
+        
+2018-09-06 17:43:06,308:account:[INFO]:
+            Account Information:
+
+            Name:SomeAccount
+
+            ID:someID
+
+        

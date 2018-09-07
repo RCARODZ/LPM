@@ -37,7 +37,7 @@ import sqlite3 #is this the database im going to use?
 # Set up logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-handler = logging.FileHandler('pgenerator.log')
+handler = logging.FileHandler('cllpm.log', mode='a')
 handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s:%(name)s:[%(levelname)s]:%(message)s')
 handler.setFormatter(formatter)
@@ -97,66 +97,3 @@ class LPM(object):
 
     def password_handler(self, plaintext):
         return self.password_funct()
-
-
-def main_args():
-    # Define arguments
-    # Have a functional argparser befre begining full code. 
-    p = argparse.ArgumentParser(prog='pgenerator.py',
-                                description='Generate a strong password',
-                                epilog='Author: Ricardo Castro | Pgen V{0}'.format(VERSION))
-    p.add_argument("-t",
-                   help="Run a test",action='store_true')
-    p.add_argument("-s", type=str,
-                   help="Input secret key:  -s [key]")
-    p.add_argument("-p","--password", type=str, help="define password -p [password]")
-    p.add_argument("-a", "--account", type=str, help="enter account to be used -a [account]")
-    p.add_argument("-c","--symbols", type=bool, help="Does the password needs to contain symbol?")
-    p.add_argument("--on", action="store_true", help="include to enable")
-    p.add_argument("-l", "--length", type=int, help="Length of the password")
-    p.add_argument("-v", "--verbosity", type=int, choices=[0,1,2], default=0,
-                   help="increase output verbosity")
-
-    return(p.parse_args())
-
-if __name__ == '__main__':
-    
-    args = main_args()
-
-    #Input variables 
-    name = 'Facebook'
-    length = 8 #default
-    symbols = True
-    password = 'password'
-
-    if args.t:
-        logger.info("Entered testing evironment...")
-        lpm = LPM(name='Home Network', length=10, symbols=False, password='hola')
-        logger.info('testing parameters:amazon:8:False:another',)
-        generated = lpm.password_funct()
-        logger.info('password generated:%s [this will only be printed in the test environment]',generated)
-        print generated
-
-    if args.password and args.account and args.length:
-        #logger.info('user entered a password:%s',args.password)
-        password = args.password
-        lpm = LPM(name=args.account, length=args.length, symbols=False, password=args.password)
-        logger.info('user entered an account:%s, password:%s, and length:%d', args.account, args.password, args.length)
-        passwordgen = lpm.password_funct()
-        print passwordgen
-    if args.password and args.account:
-        logger.info('user entered an account:%s, and password:%s',args.account, args.password)
-        name = args.account
-        print name
-    if args.length:
-        logger.info('user entered length for the password:%d',args.length)
-        length = args.length
-        print length
-    if args.symbols:
-        logger.info('user answered symbol question')
-        symbols = args.symbols
-        print symbols
-
-    elif len(sys.argv) == 0: #Something is wrong here
-        #This is printing some weird thing
-        print(main_args())
