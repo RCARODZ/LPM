@@ -26,7 +26,7 @@ def main_args():
                    help="Run a test",action='store_true')
     p.add_argument("-s", type=str,
                    help="Input secret key:  -s [key]")
-    p.add_argument("-p","--password", type=str, help="define password -p [password]")
+    p.add_argument("-p","--password", help="define password -p ", action='store_true')
     p.add_argument("-a", "--account", type=str, help="enter account to be used -a [account]")
     p.add_argument("-c","--symbols", type=bool, help="Does the password needs to contain symbol?")
     p.add_argument("--on", action="store_true", help="include to enable")
@@ -78,13 +78,13 @@ if __name__ == '__main__':
     '''
     if args.account and args.password:
         logger.info("User imput : name and password. Assuming length as 10")
-        # Maybe change the way the password is inputed...
-        generator = LPM.pgenerator.LPM(name=args.account, password=args.password, 
+        pwd = getpass.getpass()
+        generator = LPM.pgenerator.LPM(name=args.account, password=pwd, 
             id=uuid.uuid1(), timestamp=timestamp, length=10)
 
         mainPrint(generator.name, "", generator.id, generator.timestamp, 
             generator.length, generator.password_funct())
-    
-    if args.password:
+        
+    if args.password and not args.account:
         logger.info("Only generating a password. Asking user for password")
         getpass.getpass()
