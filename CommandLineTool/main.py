@@ -51,7 +51,7 @@ if __name__ == '__main__':
         acc.name='Home Network'
         acc.length=10
         acc.password="hola"
-        lpm = LPM.pgenerator.LPM(acc)
+        lpm = LPM.pgenerator.LPM()
         logger.info('testing parameters:amazon:8:False:another',)
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
