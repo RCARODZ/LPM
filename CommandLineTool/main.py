@@ -1,8 +1,10 @@
 import LPM
 import logging
 import argparse
+import time
+import uuid
 
-VERSION = 0
+VERSION = 0.2
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -34,25 +36,35 @@ def main_args():
     return(p.parse_args())
 
 def main():
-    print """Welcome to Local Password Manager Command Line Tool V{0}
+    print """Welcome to Local Password Manager Command Line Tool V {0}
         -Store Account Passwords Localy
         -Includes a Password Generator to use for creating strong passwords
         
         This tool is developed by Ricardo Castro and it is completley open source.\n""".format(VERSION)
 
+def testPrint(name, password, id, time, length):
+    print """
+    Test Environment
+
+    Name Input : {0}
+    Password Input : {1}
+    id : {2}
+    Timestamp : {3}
+    Length : {4}
+    """.format(name, password, id, time, length)
+
 if __name__ == '__main__':
     main()
-    
+    timestamp = time.strftime("%d%m%Y", time.gmtime())
+
     args = main_args()
 
     if args.t:
         logger.info("Entered testing evironment...")
-        acc = LPM.account.Account()
-        acc.name='Home Network'
-        acc.length=10
-        acc.password="hola"
-        lpm = LPM.pgenerator.LPM()
-        logger.info('testing parameters:amazon:8:False:another',)
+        lpm = LPM.pgenerator.LPM(name="Amazon", password="somepassword", id=uuid.uuid1(), timestamp=timestamp, length=10)
+        logger.info("Sending name={0}, password={1}, id={2}, \
+        timestamp={3}, length={4}".format(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length))
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
-        print generated
+        testPrint(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length)
+        

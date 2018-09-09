@@ -46,19 +46,13 @@ logger.addHandler(handler)
 
 
 class Account(object):
-    def __init__(self):
-        self.name = ""
-        self.password = ""
-        self.id = ""
-        self.timestamp = ""
-        self.length = 0
-    
-    # Run on debug mode
-    def getName(self):
-        logger.info(self.name)
-
-    def getID(self):
-        logger.info(self.id)
+    def __init__(self, name, password, id, timestamp, length):
+        logger.info("Initializing Account...")
+        self.name = name
+        self.password = password
+        self.id = id
+        self.timestamp = timestamp
+        self.length = length
 
     def accountInfo(self):
         accnt = """
@@ -69,13 +63,14 @@ class Account(object):
         logger.info(accnt)
 
 class LPM(Account):
-    def __init__(self):
+    def __init__(self, name, password, id, timestamp, length):
         self.symbols = False #does it contain symbols
         self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             '0123456789!@#$%^&*()-_')
-        Account.__init__(self)
-        print self.name
+        #Initialize Accounts Instance 
+        Account.__init__(self, name, password, id, timestamp, length)
+        
         
         
     def get_alphabet(self):
