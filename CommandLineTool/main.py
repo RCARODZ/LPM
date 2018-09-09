@@ -76,12 +76,21 @@ if __name__ == '__main__':
     When the user inputs account name and password: 
         should the length be asumed? 
     '''
-    if args.account and args.password:
+    if args.account and args.password and not args.length:
         logger.info("User imput : name and password. Assuming length as 10")
         pwd = getpass.getpass()
         generator = LPM.pgenerator.LPM(name=args.account, password=pwd, 
             id=uuid.uuid1(), timestamp=timestamp, length=10)
 
+        mainPrint(generator.name, "", generator.id, generator.timestamp, 
+            generator.length, generator.password_funct())
+        
+    if args.account and args.password and args.length:
+        logger.info("User input : name, password and length")
+        pwd = getpass.getpass()
+        generator = LPM.pgenerator.LPM(name=args.account, password=pwd,
+            id=uuid.uuid1(), timestamp=timestamp, length=args.length)
+        
         mainPrint(generator.name, "", generator.id, generator.timestamp, 
             generator.length, generator.password_funct())
         
