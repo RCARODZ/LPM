@@ -3,6 +3,7 @@ import logging
 import argparse
 import time
 import uuid
+import getpass
 
 VERSION = 0.2
 
@@ -40,18 +41,21 @@ def main():
         -Store Account Passwords Localy
         -Includes a Password Generator to use for creating strong passwords
         
-        This tool is developed by Ricardo Castro and it is completley open source.\n""".format(VERSION)
+        This tool is developed by Ricardo Castro and it is completley open source.\n
+        
+        -----------------------------------------------------------------------------""".format(VERSION)
 
-def testPrint(name, password, id, time, length):
+def mainPrint(name, password, id, time, length, generated):
     print """
-    Test Environment
+    Output
 
     Name Input : {0}
     Password Input : {1}
     id : {2}
     Timestamp : {3}
     Length : {4}
-    """.format(name, password, id, time, length)
+    Generated : {5}
+    """.format(name, password, id, time, length, generated)
 
 if __name__ == '__main__':
     main()
@@ -66,5 +70,21 @@ if __name__ == '__main__':
         timestamp={3}, length={4}".format(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length))
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
-        testPrint(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length)
-        
+        testPrint(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length, lpm.password_funct())
+    
+    '''
+    When the user inputs account name and password: 
+        should the length be asumed? 
+    '''
+    if args.account and args.password:
+        logger.info("User imput : name and password. Assuming length as 10")
+        # Maybe change the way the password is inputed...
+        generator = LPM.pgenerator.LPM(name=args.account, password=args.password, 
+            id=uuid.uuid1(), timestamp=timestamp, length=10)
+
+        mainPrint(generator.name, "", generator.id, generator.timestamp, 
+            generator.length, generator.password_funct())
+    
+    if args.password:
+        logger.info("Only generating a password. Asking user for password")
+        getpass.getpass()

@@ -47,7 +47,7 @@ logger.addHandler(handler)
 
 class Account(object):
     def __init__(self, name, password, id, timestamp, length):
-        logger.info("Initializing Account...")
+        logger.info("Initializing Account infomration")
         self.name = name
         self.password = password
         self.id = id
