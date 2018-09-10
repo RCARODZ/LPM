@@ -71,11 +71,7 @@ if __name__ == '__main__':
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
         testPrint(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length, lpm.password_funct())
-    
-    '''
-    When the user inputs account name and password: 
-        should the length be asumed? 
-    '''
+   
     if args.account and args.password and not args.length:
         logger.info("User imput : name and password. Assuming length as 10")
         pwd = getpass.getpass()
