@@ -26,7 +26,7 @@ def main_args():
                    help="Run a test",action='store_true')
     p.add_argument("-s", type=str,
                    help="Input secret key:  -s [key]")
-    p.add_argument("-p","--password", help="define password -p ", action='store_true')
+    p.add_argument("-p","--password", help="will prompt you to type a password", action='store_true')
     p.add_argument("-a", "--account", type=str, help="enter account to be used -a [account]")
     p.add_argument("-c","--symbols", type=bool, help="Does the password needs to contain symbol?")
     p.add_argument("--on", action="store_true", help="include to enable")
@@ -41,7 +41,7 @@ def main():
         -Store Account Passwords Localy
         -Includes a Password Generator to use for creating strong passwords
         
-        This tool is developed by Ricardo Castro and it is completley open source.\n
+        This tool is developed by Ricardo Castro and it is completelyy open source.\n
         
         -----------------------------------------------------------------------------""".format(VERSION)
 
@@ -90,7 +90,12 @@ if __name__ == '__main__':
         mainPrint(generator.name, "", generator.id, generator.timestamp, 
             generator.length, generator.password_funct())
         
-    if args.password and not args.account and not length:
+    if args.password and not args.account:
         logger.info("Only generating a password. Asking user for password")
+        #Give user input about password entry, and double check password entry
         pwd = getpass.getpass()
-        generator = LPM.pgenerator.LPM(uuid.uuid3(), pwd, None, None, 10)
+        #Generate a random string for the name
+        generator = LPM.pgenerator.LPM("none", pwd, uuid.uuid1(), timestamp, 10)
+        print """
+            Password Generator: {0}
+        """.format(generator.password_funct())
