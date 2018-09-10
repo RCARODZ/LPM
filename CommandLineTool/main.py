@@ -5,7 +5,7 @@ import time
 import uuid
 import getpass
 
-VERSION = 0.3
+VERSION = 0.4
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -32,6 +32,8 @@ def main_args():
     p.add_argument("-l", "--length", type=int, help="Length of the password")
     p.add_argument("-v", "--verbosity", type=int, choices=[0,1,2], default=0,
                    help="increase output verbosity")
+    # Testing flags
+    p.add_argument("-d", "--database", help="run database test", action='store_true')
 
     return(p.parse_args())
 
@@ -98,3 +100,15 @@ if __name__ == '__main__':
         print """
             Password Generator: {0}
         """.format(generator.password_funct())
+    
+    if args.database:
+        logger.info("Testing database environment")
+        
+        #Tester
+        lpm = LPM.pgenerator.LPM(name="Amazon", password="somepassword", id=uuid.uuid1(), timestamp=timestamp, length=10)
+        logger.info("Sending name={0}, password={1}, id={2}, \
+        timestamp={3}, length={4}".format(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length))
+        generated = lpm.password_funct()
+        databse = LPM.pgenerator.DataBase(name="Amazon", password="somepassword", id=uuid.uuid1(), timestamp=timestamp, length=10)
+        databse.addtoFile()
+        logger.info('password generated:%s [this will only be printed in the test environment]',generated)

@@ -120,26 +120,30 @@ class LPM(Account):
         return self.password_funct()
 
 class DataBase(LPM):
-    def __init___(self):
-        LPM.__init__(self)
+    def __init___(self,name, password, id, timestamp, length):
+        LPM.__init__(self, name, password, id, timestamp, length)
         logger.info("Initializing json database")
         self.fileName = "tester.json"
 
     def addtoFile(self):
         logger.info("Adding data to file")
         data = {
-            "Demo User":{
-                "ID" : self.id
-                "name" : self.name
-                "password" : self.password
-                "Timestamp" : self.timestamp
-                "Length" : self.length
+            "Demo User (username)":{
+                "ID": str(self.id),
+                "name": self.name,
+                "password": self.password,
+                "Timestamp": self.timestamp,
+                "Length": self.length,
+                "Genedated": self.password_funct()
             }
         }
-        with open(self.fileName, 'a') as jsondata:
+        with open("tester.json", 'a') as jsondata:
             json.dump(data, jsondata)
 
-    
+    def readfromFile(self):
+        with open("tester.json", "r") as read_file:
+            data = json.load(read_file)
+
     def removefromFile(self):
         pass
 
