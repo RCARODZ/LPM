@@ -33,6 +33,7 @@ import logging
 import sys
 import os
 import sqlite3 #is this the database im going to use? 
+import json, base64
 from account import Account
 
 # Set up logger
@@ -121,11 +122,23 @@ class LPM(Account):
 class DataBase(LPM):
     def __init___(self):
         LPM.__init__(self)
-        fileName = "tester.json"
-
+        logger.info("Initializing json database")
+        self.fileName = "tester.json"
 
     def addtoFile(self):
-        pass
+        logger.info("Adding data to file")
+        data = {
+            "Demo User":{
+                "ID" : self.id
+                "name" : self.name
+                "password" : self.password
+                "Timestamp" : self.timestamp
+                "Length" : self.length
+            }
+        }
+        with open(self.fileName, 'a') as jsondata:
+            json.dump(data, jsondata)
+
     
     def removefromFile(self):
         pass
