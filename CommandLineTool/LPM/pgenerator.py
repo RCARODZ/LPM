@@ -137,6 +137,7 @@ class DataBase(LPM):
                 "Genedated": self.password_funct()
             }
         }
+        json_data = json.dumps(data, indent=4)
         with open("tester.json", 'a') as jsondata:
             json.dump(data, jsondata)
 
