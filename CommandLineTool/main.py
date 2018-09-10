@@ -70,7 +70,7 @@ if __name__ == '__main__':
         timestamp={3}, length={4}".format(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length))
         generated = lpm.password_funct()
         logger.info('password generated:%s [this will only be printed in the test environment]',generated)
-        testPrint(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length, lpm.password_funct())
+        mainPrint(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length, lpm.password_funct())
    
     if args.account and args.password and not args.length:
         logger.info("User imput : name and password. Assuming length as 10")
@@ -90,6 +90,7 @@ if __name__ == '__main__':
         mainPrint(generator.name, "", generator.id, generator.timestamp, 
             generator.length, generator.password_funct())
         
-    if args.password and not args.account:
+    if args.password and not args.account and not length:
         logger.info("Only generating a password. Asking user for password")
-        getpass.getpass()
+        pwd = getpass.getpass()
+        generator = LPM.pgenerator.LPM(uuid.uuid3(), pwd, None, None, 10)
