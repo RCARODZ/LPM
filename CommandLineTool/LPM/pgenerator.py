@@ -117,3 +117,21 @@ class LPM(Account):
 
     def password_handler(self, plaintext):
         return self.password_funct()
+
+class DataBase(LPM):
+    def __init___(self):
+        LPM.__init__(self)
+        fileName = "tester.json"
+
+
+    def addtoFile(self):
+        pass
+    
+    def removefromFile(self):
+        pass
+
+    def encrypt(self):
+        pass
+
+    def decrypt(self):
+        pass

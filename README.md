@@ -48,7 +48,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Django 1.11
+Python 2.7
 ```
 
 ### Installing
@@ -70,7 +70,7 @@ Still in develpment
 Explain what these tests test and why
 
 ```
-Give an example
+python main.py -t
 ```
 
 ## Deployment
@@ -79,7 +79,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Django](https://www.djangoproject.com) - Django web framework
+* [Python](https://www.python.org) - Python 2.7
+
 
 ## Contributing
 

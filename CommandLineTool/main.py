@@ -5,7 +5,7 @@ import time
 import uuid
 import getpass
 
-VERSION = 0.2
+VERSION = 0.3
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ logger.addHandler(handler)
 def main_args():
     # Define arguments
     p = argparse.ArgumentParser(prog='main.py',
-                                description='Generate a strong password',
+                                description='Local Password Manager, store passwords, create passwords all from your own machine.',
                                 epilog='Author: Ricardo Castro | Pgen V{0}'.format(VERSION))
     p.add_argument("-t",
                    help="Run a test",action='store_true')
