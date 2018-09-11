@@ -126,18 +126,27 @@ class DataBase(LPM):
         self.fileName = "tester.json"
 
     def addtoFile(self):
+        '''
+        This function should appendto the same user multiple accounts that the user inputs
+            DemoUser: 
+                name: [account]
+                ...
+
+                name: [account]
+                ...
+        '''
         logger.info("Adding data to file")
-        data = {
-            "Demo User (username)":{
+        json_data = {}
+        json_data['DemoUser'] = []
+        json_data['DemoUser'].append({
                 "ID": str(self.id),
                 "name": self.name,
                 "password": self.password,
                 "Timestamp": self.timestamp,
                 "Length": self.length,
                 "Genedated": self.password_funct()
-            }
-        }
-        json_data = json.dumps(data, indent=4)
+        })
+        data = json.dumps(json_data, indent=4)
         with open("tester.json", 'a') as jsondata:
             json.dump(data, jsondata)
 
