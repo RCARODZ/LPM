@@ -149,6 +149,7 @@ class DataBase(LPM):
         data = json.dumps(json_data, indent=4)
         with open("tester.json", 'a') as jsondata:
             json.dump(data, jsondata)
+        logger.warning("This is creating multiple users of the same user... needs fixing")
 
     def readfromFile(self):
         with open("tester.json", "r") as read_file:
