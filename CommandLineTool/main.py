@@ -4,6 +4,7 @@ import argparse
 import time
 import uuid
 import getpass
+import os, sys
 
 VERSION = 0.4
 
@@ -59,6 +60,10 @@ def mainPrint(name, password, id, time, length, generated):
     """.format(name, password, id, time, length, generated)
 
 if __name__ == '__main__':
+    if os.getuid() != 0:
+        print("Run this program as sudo...")
+        sys.exit()
+
     main()
     timestamp = time.strftime("%d%m%Y", time.gmtime())
 
