@@ -4,13 +4,32 @@ Local Password Manager is a tool design to generate and store passwords in a saf
 
 ## To Do:
 
+Create an API for a more modular environment.
+
 Create an integration with a database. (maybe)
 
 Create easy user interaction. (add, remove, modify)
 
 Redesing Class Implementations
 
+Create user accounts within LPM. (Figure out how to do this...)
+
 ## FIX:
+
++ Add more comments in the code.
+
+
+## LPM API
+
++ End-to-end encrypted to proctect user account.
++ The comms will be decrypted by LPM
++ What methods will be implemented in the API:
+    - get_userinfo()
+        * This will respond with the user information
+    - get_accountinfo()
+        * Respond with account information
+    - get_accountpsswds()
+        * Respond with every account and every password that corresponds to the account.
 
 
 ### User stuff:
@@ -53,13 +72,15 @@ Python 2.7
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+#### Developing Setup.py
 
 ```
-Still in development
+python setup.py install
 ```
+
++ Install LPM Dependencies
++ Setup Database
++ What more? 
 
 ## Running the tests
 

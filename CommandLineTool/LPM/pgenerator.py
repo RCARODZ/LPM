@@ -27,14 +27,14 @@ Create easy user interaction. (add, remove, modify)
 """
 
 # IMPORTS
-import hashlib
-import argparse
-import logging
-import sys
-import os
+import hashlib, argparse, logging, sys, os
 import sqlite3 #is this the database im going to use? 
 import json, base64
 from account import Account
+from flask import Flask, request, jsonify
+from flask_restful import Resource, Api
+from sqlalchemy import create_engine
+from json import dumps
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -159,7 +159,47 @@ class DataBase(LPM):
         pass
 
     def encrypt(self):
+        '''
+        Encrypt to send to the API with a header with the CRC checksum.
+
+        All the data stored in the API should be encrypted
+        '''
         pass
 
     def decrypt(self):
         pass
+
+# API 
+import sqlite3
+from sqlite3 import Error
+ 
+ 
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()
+ 
+def create_table(conn, create_table_sql):
+    """ create a table from the create_table_sql statement
+    :param conn: Connection object
+    :param create_table_sql: a CREATE TABLE statement
+    :return:
+    """
+    try:
+        c = conn.cursor()
+        c.execute(create_table_sql)
+    except Error as e:
+        print(e)
+
+class apiAccount(Resource):
+    conn = db_connect.connect()
+    query = conn.exexute("select * from account")
+    return {'employees': [i[0] for i in query.cursor.fetchall()]} # Fetches first column that is Employee ID
+
+if __name__ == '__main__':
+    create_connection("C:\\sqlite\db\pythonsqlite.db")
