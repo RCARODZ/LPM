@@ -22,6 +22,10 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:[%(levelname)s]:%(message)s'
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+# Database
+DB_NAME = "actual.db"
+logger.info("Using {0} database on setup.py.".format(DB_NAME))
+
 class PostInstallCommand(install):
     """
     Creating setup.py install command
@@ -37,10 +41,14 @@ class PostInstallCommand(install):
         create_table = """ CREATE TABLE IF NOT EXISTS lpm (
             id integer PRIMARY KEY,
             name text NOT NULL,
-            date_created text ); """
-        dbname = "somedb.db"
+            date_created text NOT NULL,
+            username VARCHAR(20) NOT NULL,
+            password VARCHAR(20) NOT NULL,
+            symbols BOOLEAN,
+            length INT  ); """
+        
         db = LPM.pgenerator.Database()
-        db.create_connection(dbname)
+        db.create_connection(DB_NAME)
         db.create_table(create_table)
 
         logger.info("Running setup.py install...")
@@ -51,8 +59,8 @@ REQUIERED = {
 }
 
 setup(
-    name='LPMcli',
-    version='0.4dev',
+    name='PASSmage',
+    version='0.6dev',
     license='MIT License',
     long_description=open('../README.md').read(),
     author='Ricardo Castro',

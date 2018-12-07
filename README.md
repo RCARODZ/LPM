@@ -84,7 +84,9 @@ python setup.py install
 
 ## Running the tests
 
-Still in develpment
+```
+python main.py -t 
+```
 
 ### Break down into end to end tests
 

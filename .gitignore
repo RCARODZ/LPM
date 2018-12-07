@@ -9,3 +9,11 @@ CommandLineTool/LPMcli.egg-info/top_level.txt
 CommandLineTool/dist/LPMcli-0.4.dev0-py2.7.egg
 CommandLineTool/LPM/pgenerator.pyc
 CommandLineTool/LPM/__init__.pyc
+.vscode/launch.json
+CommandLineTool/actual.db
+CommandLineTool/LPM/pgenerator.pyc
+CommandLineTool/PASSmage.egg-info/PKG-INFO
+CommandLineTool/PASSmage.egg-info/SOURCES.txt
+CommandLineTool/PASSmage.egg-info/dependency_links.txt
+CommandLineTool/PASSmage.egg-info/top_level.txt
+.gitignore

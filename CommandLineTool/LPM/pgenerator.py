@@ -45,8 +45,83 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:[%(levelname)s]:%(message)s'
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+# Database
+DB_NAME = "actual.db"
+logger.info("Using {0} database in pgenerator.py.".format(DB_NAME))
+
+class Database(object):
+    """
+    This class is used to manage database connections.
+
+    Parameters
+    ----------
+    conn : sqlite object 
+        Creates a connection to a database
+    """
+    def __init__(self):
+        logger.info("Initializing Database.")
+        #LPM.__init__(self, name, password, id, timestamp, length)
+        self.conn = sqlite3.connect(DB_NAME)
+
+   
+    def create_table(self, create_table_sql):
+        """ Creates a Table
+
+        Parameters
+        ----------
+        create_table_sql: str
+            A string witht the query for creating the table.
+
+        """
+        logger.info("Creating table in database.")
+        try:
+            c = self.conn.cursor()
+            c.execute(create_table_sql)
+        except sqlite3.Error as e:
+            logger.error("Database error {0}".format(e))
+            print(e)
+
+    def create_connection(self, db_file):
+        """ Create a connection to the Database
+
+        Parameters
+        ----------
+        db_file: str
+            Database name
+
+        Returns
+        -------
+        On success this function returns a connection object of the database.
+        On failure this function returns None.
+        """
+        logger.info("Connecting to database.")
+        try:
+            self.conn = sqlite3.connect(db_file)
+            return self.conn
+        except sqlite3.Error as e:
+            logger.error("Database connection error {0}".format(e))
+            print(e)
+        return None
+
 
 class Account(object):
+    """
+    Sotres account information
+
+    Parameters
+    ----------
+    name: str
+        username for the account
+    password: str
+        password for the account
+    id: str
+        id generated for the account
+    timestamp: timestamp
+        timestamp generated when the password was created
+    length: int
+        lenth of the password
+
+    """
     def __init__(self, name, password, id, timestamp, length):
         logger.info("Initializing Account infomration")
         self.name = name
@@ -56,6 +131,8 @@ class Account(object):
         self.length = length
 
     def accountInfo(self):
+        """ Display account information
+        """
         accnt = """
             Account Information:\n
             Name:{0}\n
@@ -64,6 +141,16 @@ class Account(object):
         logger.info(accnt)
 
 class LPM(Account):
+    """
+    LPM Account 
+
+    Parameters
+    ----------
+    symbosl: bool
+        Does the user want the password to contain symbols?
+    alphabet: dict
+        to be used to generate a password
+    """
     def __init__(self, name, password, id, timestamp, length):
         self.symbols = False #does it contain symbols
         self.alphabet = ('abcdefghijklmnopqrstuvwxyz'
@@ -71,8 +158,6 @@ class LPM(Account):
             '0123456789!@#$%^&*()-_')
         #Initialize Accounts Instance 
         Account.__init__(self, name, password, id, timestamp, length)
-        
-        
         
     def get_alphabet(self):
         logger.info('generating alphabet for password...')
@@ -94,7 +179,6 @@ class LPM(Account):
         hsh = self.get_hexdigest()
         return ''.join((salt, hsh))
 
-
     def password_funct(self):
         logger.warning('password_funct... this function needs to be verified..')
         #check variables
@@ -114,57 +198,9 @@ class LPM(Account):
             num, idx = divmod(num, num_chars)
             chars.append(self.alphabet[idx])
 
+        breakpoint()
         return ''.join(chars)
 
     def password_handler(self, plaintext):
         return self.password_funct()
 
-class Database(LPM):
-    """
-    This class is used to manage database connections.
-
-    Parameters
-    ----------
-    conn : sqlite object 
-        Creates a connection to a database
-    """
-    def __init__(self):
-        logger.info("Initializing json database")
-        #LPM.__init__(self, name, password, id, timestamp, length)
-        self.conn = sqlite3.connect("tester.db")
-
-   
-    def create_table(self, create_table_sql):
-        """ Creates a Table
-
-        Parameters
-        ----------
-        create_table_sql: str
-            A string witht the query for creating the table.
-
-        """
-        try:
-            c = self.conn.cursor()
-            c.execute(create_table_sql)
-        except sqlite3.Error as e:
-            print(e)
-
-    def create_connection(self, db_file):
-        """ Create a connection to the Database
-
-        Parameters
-        ----------
-        db_file: str
-            Database name
-
-        Returns
-        -------
-        On success this function returns a connection object of the database.
-        On failure this function returns None.
-        """
-        try:
-            self.conn = sqlite3.connect(db_file)
-            return self.conn
-        except sqlite3.Error as e:
-            print(e)
-        return None

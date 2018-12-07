@@ -6,7 +6,7 @@ import uuid
 import getpass
 import os, sys
 
-VERSION = 0.4
+VERSION = 0.6
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ def main_args():
     # Define arguments
     p = argparse.ArgumentParser(prog='main.py',
                                 description='Local Password Manager, store passwords, create passwords all from your own machine.',
-                                epilog='Author: Ricardo Castro | Pgen V{0}'.format(VERSION))
+                                epilog='Author: Ricardo Castro | PMAGE V{0}'.format(VERSION))
     p.add_argument("-t",
                    help="Run a test",action='store_true')
     p.add_argument("-s", type=str,
@@ -39,7 +39,17 @@ def main_args():
     return(p.parse_args())
 
 def main():
-    print """Welcome to Local Password Manager Command Line Tool V {0}
+    print """
+            |========\    
+            |        |
+            |        |
+            |========/
+            | |
+            | |
+            | |
+            | |
+
+        Welcome to PASSMaGE Command Line Tool V {0}
         -Store Account Passwords Localy
         -Includes a Password Generator to use for creating strong passwords
         
@@ -107,13 +117,13 @@ if __name__ == '__main__':
         """.format(generator.password_funct())
     
     if args.database:
-        logger.info("Testing database environment")
+        logger.info("Testing database environment.")
         
         #Tester
         lpm = LPM.pgenerator.LPM(name="Amazon", password="somepassword", id=uuid.uuid1(), timestamp=timestamp, length=10)
         logger.info("Sending name={0}, password={1}, id={2}, \
         timestamp={3}, length={4}".format(lpm.name,lpm.password,lpm.id,lpm.timestamp,lpm.length))
         generated = lpm.password_funct()
-        databse = LPM.pgenerator.DataBase(name="Amazon", password="somepassword", id=uuid.uuid1(), timestamp=timestamp, length=10)
-        databse.addtoFile()
-        logger.info('password generated:%s [this will only be printed in the test environment]',generated)
+
+        # Implement Database Queries...
+        databse = LPM.pgenerator.Database()
