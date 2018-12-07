@@ -31,9 +31,9 @@ import hashlib, argparse, logging, sys, os
 import sqlite3 #is this the database im going to use? 
 import json, base64
 from account import Account
-from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
-from sqlalchemy import create_engine
+# from flask import Flask, request, jsonify
+# from flask_restful import Resource, Api
+# from sqlalchemy import create_engine
 from json import dumps
 
 # Set up logger
@@ -119,87 +119,52 @@ class LPM(Account):
     def password_handler(self, plaintext):
         return self.password_funct()
 
-class DataBase(LPM):
-    def __init___(self,name, password, id, timestamp, length):
-        LPM.__init__(self, name, password, id, timestamp, length)
-        logger.info("Initializing json database")
-        self.fileName = "tester.json"
-
-    def addtoFile(self):
-        '''
-        This function should appendto the same user multiple accounts that the user inputs
-            DemoUser: 
-                name: [account]
-                ...
-
-                name: [account]
-                ...
-        '''
-        logger.info("Adding data to file")
-        json_data = {}
-        json_data['DemoUser'] = []
-        json_data['DemoUser'].append({
-                "ID": str(self.id),
-                "name": self.name,
-                "password": self.password,
-                "Timestamp": self.timestamp,
-                "Length": self.length,
-                "Genedated": self.password_funct()
-        })
-        data = json.dumps(json_data, indent=4)
-        with open("tester.json", 'a') as jsondata:
-            json.dump(data, jsondata)
-        logger.warning("This is creating multiple users of the same user... needs fixing")
-
-    def readfromFile(self):
-        with open("tester.json", "r") as read_file:
-            data = json.load(read_file)
-
-    def removefromFile(self):
-        pass
-
-    def encrypt(self):
-        '''
-        Encrypt to send to the API with a header with the CRC checksum.
-
-        All the data stored in the API should be encrypted
-        '''
-        pass
-
-    def decrypt(self):
-        pass
-
-# API 
-import sqlite3
-from sqlite3 import Error
- 
- 
-def create_connection(db_file):
-    """ create a database connection to a SQLite database """
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        conn.close()
- 
-def create_table(conn, create_table_sql):
-    """ create a table from the create_table_sql statement
-    :param conn: Connection object
-    :param create_table_sql: a CREATE TABLE statement
-    :return:
+class Database(LPM):
     """
-    try:
-        c = conn.cursor()
-        c.execute(create_table_sql)
-    except Error as e:
-        print(e)
+    This class is used to manage database connections.
 
-class apiAccount(Resource):
-    conn = db_connect.connect()
-    query = conn.exexute("select * from account")
-    return {'employees': [i[0] for i in query.cursor.fetchall()]} # Fetches first column that is Employee ID
+    Parameters
+    ----------
+    conn : sqlite object 
+        Creates a connection to a database
+    """
+    def __init__(self):
+        logger.info("Initializing json database")
+        #LPM.__init__(self, name, password, id, timestamp, length)
+        self.conn = sqlite3.connect("tester.db")
 
-if __name__ == '__main__':
-    create_connection("C:\\sqlite\db\pythonsqlite.db")
+   
+    def create_table(self, create_table_sql):
+        """ Creates a Table
+
+        Parameters
+        ----------
+        create_table_sql: str
+            A string witht the query for creating the table.
+
+        """
+        try:
+            c = self.conn.cursor()
+            c.execute(create_table_sql)
+        except sqlite3.Error as e:
+            print(e)
+
+    def create_connection(self, db_file):
+        """ Create a connection to the Database
+
+        Parameters
+        ----------
+        db_file: str
+            Database name
+
+        Returns
+        -------
+        On success this function returns a connection object of the database.
+        On failure this function returns None.
+        """
+        try:
+            self.conn = sqlite3.connect(db_file)
+            return self.conn
+        except sqlite3.Error as e:
+            print(e)
+        return None
