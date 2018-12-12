@@ -4,6 +4,8 @@ Local Password Manager is a tool design to generate and store passwords in a saf
 
 ## To Do:
 
+* Working on Python 3 implementation
+
 Create an API for a more modular environment.
 
 Create an integration with a database. (maybe)
