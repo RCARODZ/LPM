@@ -1,5 +1,5 @@
 # Imports
-import logging, uuid
+import logging, uuid, hashlib
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -94,7 +94,28 @@ class PMAGE3(Account):
                 alpha += '!@#$%^&*()-_'
             return alpha
 
-        
+        def get_hex_digest(self):
+            """
+            Generate a hash using a key.
+
+            Parameters
+            ----------
+            None
+
+            Return:
+            Generated hash
+            """
+            key = hashlib.sha256(SECRET_KEY+self.name+self.password).hexdigest()
+            logger.info('[__get_hex_digest]:{0}'.format(key))
+            return key
+
+        def make_password(self):
+            """
+
+            """
+            salt = self.get_hex_digest()
+            hsh = self.get_hex_digest()
+            return ''.join((salt, hsh))
 
     if __name__ == "__main__":
         print("PMAGE3 v{0}\n".format(VERSION))
