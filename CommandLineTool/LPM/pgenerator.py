@@ -198,7 +198,6 @@ class LPM(Account):
             num, idx = divmod(num, num_chars)
             chars.append(self.alphabet[idx])
 
-        breakpoint()
         return ''.join(chars)
 
     def password_handler(self, plaintext):

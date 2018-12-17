@@ -117,6 +117,27 @@ class PMAGE3(Account):
             hsh = self.get_hex_digest()
             return ''.join((salt, hsh))
 
+        def password_funct(self):
+            logger.warning('password_funct... this function needs to be verified..')
+            #check variables
+            #its allways returning the same password...
+            raw_hexdigest = self.make_password(self.password, self.name)
+
+            # Convert the hexdigest into decimal
+            num = int(raw_hexdigest, 16)
+
+            # What base will we convert `num` into?
+            num_chars = len(self.alphabet)
+
+            # Build up the new password one "digit" at a time,
+            # up to a certain length
+            chars = []
+            while len(chars) < self.length:
+                num, idx = divmod(num, num_chars)
+                chars.append(self.alphabet[idx])
+
+            return ''.join(chars)
+
     if __name__ == "__main__":
         print("PMAGE3 v{0}\n".format(VERSION))
         name = input("Enter Name:")
